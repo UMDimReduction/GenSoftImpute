@@ -1,14 +1,25 @@
 Package: GenSoftImpute
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Generalized Soft Impute for Matrix Completion
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Date: 2022-03-01
+Authors@R: 
+    c(person(given = "Max",
+             family = "Turgeon",
+             role = c("aut", "cre"),
+             email = "max.turgeon@umanitoba.ca",
+             comment = c(ORCID = "0000-0003-4863-6035")))
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: Rcpp (>= 1.0.7)
-LinkingTo: Rcpp
+Imports: 
+    Rcpp
+LinkingTo: 
+    RcppArmadillo,
+    Rcpp
 Suggests: tinytest
+URL: https://github.com/UMDimReduction/GenSoftImpute
+BugReports: https://github.com/UMDimReduction/GenSoftImpute/issues
+RoxygenNote: 7.1.1
