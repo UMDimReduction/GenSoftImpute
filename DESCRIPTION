@@ -22,4 +22,4 @@ LinkingTo:
 Suggests: tinytest
 URL: https://github.com/UMDimReduction/GenSoftImpute
 BugReports: https://github.com/UMDimReduction/GenSoftImpute/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
