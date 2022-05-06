@@ -2,5 +2,6 @@
 
 export(MCA)
 export(MCA2)
+export(soft_impute)
 importFrom(Rcpp,sourceCpp)
 useDynLib(GenSoftImpute)
