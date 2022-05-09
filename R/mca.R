@@ -60,7 +60,7 @@ MCA2 <- function(X, k = NULL, tol = .Machine$double.eps^0.5) {
   #                diag(1/row_frequencies),
   #                diag(1/col_frequencies))
 
-  out <- gen_svd(X, diag(nrow(X)), diag(ncol(X)))
+  out <- gen_svd_for_R(X, diag(nrow(X)), diag(ncol(X)))
 
   keep <- if (is.null(k)) which(drop(out$svalues) > tol) else k
   out$svalues <- drop(out$svalues[keep,])

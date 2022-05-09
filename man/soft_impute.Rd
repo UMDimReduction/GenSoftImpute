@@ -2,9 +2,19 @@
 % Please edit documentation in R/gen_softimpute.R
 \name{soft_impute}
 \alias{soft_impute}
+\alias{generalized_soft_impute}
 \title{Soft Imputation}
 \usage{
 soft_impute(X, lambdas = c(10, 1, 0.1), maxiter = 100, tol = 0.001)
+
+generalized_soft_impute(
+  X,
+  M,
+  W,
+  lambdas = c(10, 1, 0.1),
+  maxiter = 100,
+  tol = 0.001
+)
 }
 \arguments{
 \item{X}{matrix}

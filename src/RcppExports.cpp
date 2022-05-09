@@ -11,9 +11,9 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// gensoftimpute_cpp
-arma::cube gensoftimpute_cpp(arma::mat& X, const arma::mat& mask, const arma::vec& lambdas, const double tol, const int maxiter);
-RcppExport SEXP _GenSoftImpute_gensoftimpute_cpp(SEXP XSEXP, SEXP maskSEXP, SEXP lambdasSEXP, SEXP tolSEXP, SEXP maxiterSEXP) {
+// softimpute_cpp
+arma::cube softimpute_cpp(arma::mat& X, const arma::mat& mask, const arma::vec& lambdas, const double tol, const int maxiter);
+RcppExport SEXP _GenSoftImpute_softimpute_cpp(SEXP XSEXP, SEXP maskSEXP, SEXP lambdasSEXP, SEXP tolSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -22,27 +22,45 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type lambdas(lambdasSEXP);
     Rcpp::traits::input_parameter< const double >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< const int >::type maxiter(maxiterSEXP);
-    rcpp_result_gen = Rcpp::wrap(gensoftimpute_cpp(X, mask, lambdas, tol, maxiter));
+    rcpp_result_gen = Rcpp::wrap(softimpute_cpp(X, mask, lambdas, tol, maxiter));
     return rcpp_result_gen;
 END_RCPP
 }
-// gen_svd
-Rcpp::List gen_svd(const Rcpp::NumericMatrix& X, const Rcpp::NumericMatrix& M, const Rcpp::NumericMatrix& W);
-RcppExport SEXP _GenSoftImpute_gen_svd(SEXP XSEXP, SEXP MSEXP, SEXP WSEXP) {
+// gensoftimpute_cpp
+arma::cube gensoftimpute_cpp(arma::mat& X, const arma::mat& M, const arma::mat& W, const arma::mat& mask, const arma::vec& lambdas, const double tol, const int maxiter);
+RcppExport SEXP _GenSoftImpute_gensoftimpute_cpp(SEXP XSEXP, SEXP MSEXP, SEXP WSEXP, SEXP maskSEXP, SEXP lambdasSEXP, SEXP tolSEXP, SEXP maxiterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type M(MSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type W(WSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type mask(maskSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type lambdas(lambdasSEXP);
+    Rcpp::traits::input_parameter< const double >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< const int >::type maxiter(maxiterSEXP);
+    rcpp_result_gen = Rcpp::wrap(gensoftimpute_cpp(X, M, W, mask, lambdas, tol, maxiter));
+    return rcpp_result_gen;
+END_RCPP
+}
+// gen_svd_for_R
+Rcpp::List gen_svd_for_R(const Rcpp::NumericMatrix& X, const Rcpp::NumericMatrix& M, const Rcpp::NumericMatrix& W);
+RcppExport SEXP _GenSoftImpute_gen_svd_for_R(SEXP XSEXP, SEXP MSEXP, SEXP WSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type X(XSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type M(MSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type W(WSEXP);
-    rcpp_result_gen = Rcpp::wrap(gen_svd(X, M, W));
+    rcpp_result_gen = Rcpp::wrap(gen_svd_for_R(X, M, W));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_GenSoftImpute_gensoftimpute_cpp", (DL_FUNC) &_GenSoftImpute_gensoftimpute_cpp, 5},
-    {"_GenSoftImpute_gen_svd", (DL_FUNC) &_GenSoftImpute_gen_svd, 3},
+    {"_GenSoftImpute_softimpute_cpp", (DL_FUNC) &_GenSoftImpute_softimpute_cpp, 5},
+    {"_GenSoftImpute_gensoftimpute_cpp", (DL_FUNC) &_GenSoftImpute_gensoftimpute_cpp, 7},
+    {"_GenSoftImpute_gen_svd_for_R", (DL_FUNC) &_GenSoftImpute_gen_svd_for_R, 3},
     {NULL, NULL, 0}
 };
 
