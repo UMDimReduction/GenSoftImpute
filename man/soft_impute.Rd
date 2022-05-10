@@ -24,6 +24,10 @@ generalized_soft_impute(
 \item{maxiter}{Maximum number of iterations}
 
 \item{tol}{Tolerance level}
+
+\item{M}{Row constraint matrix}
+
+\item{W}{Column constraint matrix}
 }
 \description{
 Soft Imputation

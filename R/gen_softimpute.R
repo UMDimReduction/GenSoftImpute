@@ -14,6 +14,8 @@ soft_impute <- function(X, lambdas = c(10, 1, 0.1),
 
 #----
 #' @export
+#' @param M Row constraint matrix
+#' @param W Column constraint matrix
 #' @rdname soft_impute
 generalized_soft_impute <- function(X, M, W, lambdas = c(10, 1, 0.1),
                                     maxiter = 100, tol = 0.001) {
