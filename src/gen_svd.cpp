@@ -45,3 +45,21 @@ void gen_svd(arma::mat &U, arma::vec &s, arma::mat &V,
   U = inv(Mmat_sqrt) * U;
   V = inv(Wmat_sqrt) * V;
 }
+
+void gen_svd(arma::mat &U, arma::vec &s, arma::mat &V,
+             const arma::mat &X,
+             const arma::vec &M,
+             const arma::vec &W) {
+  // Compute Cholesky decompositions
+  const arma::mat Mmat_sqrt = arma::diagmat(arma::sqrt(M));
+  const arma::mat Wmat_sqrt = arma::diagmat(arma::sqrt(W));
+
+  // Generalized SVD
+  const arma::mat Xtilde = Mmat_sqrt * X * Wmat_sqrt;
+
+  arma::svd(U, s, V, Xtilde);
+
+  s = s.as_col();
+  U = inv(Mmat_sqrt) * U;
+  V = inv(Wmat_sqrt) * V;
+}

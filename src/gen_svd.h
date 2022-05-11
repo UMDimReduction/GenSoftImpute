@@ -10,4 +10,9 @@ void gen_svd(arma::mat &U, arma::vec &s, arma::mat &V,
              const arma::mat &M,
              const arma::mat &W);
 
+void gen_svd(arma::mat &U, arma::vec &s, arma::mat &V,
+             const arma::mat &X,
+             const arma::vec &M,
+             const arma::vec &W);
+
 #endif

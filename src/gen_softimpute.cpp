@@ -13,7 +13,7 @@ void soft_thresholding(arma::vec &s, const double lambda){
 }
 
 // [[Rcpp::export]]
-arma::cube softimpute_cpp(arma::mat &X, const arma::mat &mask,
+arma::cube softimpute_cpp(arma::mat &X, const arma::Mat<unsigned short int> &mask,
                           const arma::vec &lambdas, const double tol,
                           const int maxiter) {
   const int n = X.n_rows;
@@ -56,8 +56,8 @@ arma::cube softimpute_cpp(arma::mat &X, const arma::mat &mask,
 }
 
 // [[Rcpp::export]]
-arma::cube gensoftimpute_cpp(arma::mat &X, const arma::mat &M,
-                             const arma::mat &W, const arma::mat &mask,
+arma::cube gensoftimpute_cpp(arma::mat &X, const arma::mat &M, const arma::mat &W,
+                             const arma::Mat<unsigned short int> &mask,
                              const arma::vec &lambdas, const double tol,
                              const int maxiter) {
   const int n = X.n_rows;
