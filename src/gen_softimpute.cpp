@@ -16,6 +16,7 @@ void soft_thresholding(arma::vec &s, const double lambda){
 arma::cube softimpute_cpp(arma::mat &X, const arma::Mat<unsigned short int> &mask,
                           const arma::vec &lambdas, const double tol,
                           const int maxiter) {
+
   const int n = X.n_rows;
   const int p = X.n_cols;
   const int K = lambdas.n_elem;
@@ -26,9 +27,9 @@ arma::cube softimpute_cpp(arma::mat &X, const arma::Mat<unsigned short int> &mas
 
   arma::uvec id_mis = find(mask == 1);
 
-  arma::mat U;
-  arma::vec s;
-  arma::mat V;
+  arma::mat U(n, n, arma::fill::zeros);
+  arma::vec s(p, arma::fill::zeros);
+  arma::mat V(p, p, arma::fill::zeros);
 
   for (int k = 0; k < K; k++) {
     double lambdak = lambdas(k);
@@ -38,10 +39,10 @@ arma::cube softimpute_cpp(arma::mat &X, const arma::Mat<unsigned short int> &mas
     while (diff > tol && iter < maxiter){
       iter++;
       X(id_mis) = Z_current(id_mis);
-
       svd(U, s, V, X);
       soft_thresholding(s, lambdak);
-      Z_next = U * arma::diagmat(s) * V.t();
+
+      Z_next = U.head_cols(p) * arma::diagmat(s) * V.t();
 
       diff = std::pow(arma::norm(Z_current - Z_next,
                                  "fro")/arma::norm(Z_next, "fro"), 2);
@@ -70,9 +71,9 @@ arma::cube gensoftimpute_cpp(arma::mat &X, const arma::mat &M, const arma::mat &
 
   arma::uvec id_mis = find(mask == 1);
 
-  arma::mat U;
-  arma::vec s;
-  arma::mat V;
+  arma::mat U(n, n, arma::fill::zeros);
+  arma::vec s(p, arma::fill::zeros);
+  arma::mat V(p, p, arma::fill::zeros);
 
   for (int k = 0; k < K; k++) {
     double lambdak = lambdas(k);
@@ -85,7 +86,7 @@ arma::cube gensoftimpute_cpp(arma::mat &X, const arma::mat &M, const arma::mat &
 
       gen_svd(U, s, V, X, M, W);
       soft_thresholding(s, lambdak);
-      Z_next = U * arma::diagmat(s) * V.t();
+      Z_next = U.head_cols(p) * arma::diagmat(s) * V.t();
 
       diff = std::pow(arma::norm(Z_current - Z_next,
                                  "fro")/arma::norm(Z_next, "fro"), 2);
