@@ -14,7 +14,7 @@ void soft_thresholding(arma::vec &s, const double lambda){
 
 // [[Rcpp::export]]
 arma::cube softimpute_cpp(arma::mat &X, const arma::Mat<unsigned short int> &mask,
-                          const arma::vec &lambdas, const double tol,
+                          const int ncp, const arma::vec &lambdas, const double tol,
                           const int maxiter) {
 
   const int n = X.n_rows;
@@ -42,7 +42,7 @@ arma::cube softimpute_cpp(arma::mat &X, const arma::Mat<unsigned short int> &mas
       svd(U, s, V, X);
       soft_thresholding(s, lambdak);
 
-      Z_next = U.head_cols(p) * arma::diagmat(s) * V.t();
+      Z_next = U.head_cols(ncp) * arma::diagmat(s.head(ncp)) * V.head_cols(ncp).t();
 
       diff = std::pow(arma::norm(Z_current - Z_next,
                                  "fro")/arma::norm(Z_next, "fro"), 2);
@@ -59,7 +59,7 @@ arma::cube softimpute_cpp(arma::mat &X, const arma::Mat<unsigned short int> &mas
 // [[Rcpp::export]]
 arma::cube gensoftimpute_cpp(arma::mat &X, const arma::mat &M, const arma::mat &W,
                              const arma::Mat<unsigned short int> &mask,
-                             const arma::vec &lambdas, const double tol,
+                             const int ncp, const arma::vec &lambdas, const double tol,
                              const int maxiter) {
   const int n = X.n_rows;
   const int p = X.n_cols;
@@ -86,7 +86,7 @@ arma::cube gensoftimpute_cpp(arma::mat &X, const arma::mat &M, const arma::mat &
 
       gen_svd(U, s, V, X, M, W);
       soft_thresholding(s, lambdak);
-      Z_next = U.head_cols(p) * arma::diagmat(s) * V.t();
+      Z_next = U.head_cols(ncp) * arma::diagmat(s.head(ncp)) * V.head_cols(ncp).t();
 
       diff = std::pow(arma::norm(Z_current - Z_next,
                                  "fro")/arma::norm(Z_next, "fro"), 2);

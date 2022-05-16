@@ -5,12 +5,13 @@
 \alias{generalized_soft_impute}
 \title{Soft Imputation}
 \usage{
-soft_impute(X, lambdas = c(10, 1, 0.1), maxiter = 100, tol = 0.001)
+soft_impute(X, ncp = 2L, lambdas = c(10, 1, 0.1), maxiter = 100, tol = 0.001)
 
 generalized_soft_impute(
   X,
-  M,
-  W,
+  M = diag(nrow(X)),
+  W = diag(ncol(X)),
+  ncp = 2L,
   lambdas = c(10, 1, 0.1),
   maxiter = 100,
   tol = 0.001
@@ -18,6 +19,8 @@ generalized_soft_impute(
 }
 \arguments{
 \item{X}{matrix}
+
+\item{ncp}{Number of components}
 
 \item{lambdas}{Tuning parameters}
 
